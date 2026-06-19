@@ -12,9 +12,18 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
     @Bean
     public OpenAPI customOpenAPI(){
+        SecurityScheme securityScheme = new SecurityScheme()
+                .name("bearerAuth")
+                .type(SecurityScheme.Type.HTTP)
+                .scheme("bearer")
+                .bearerFormat("JWT");
+        SecurityRequirement securityRequirement = new SecurityRequirement()
+                .addList("bearerAuth");
         return new OpenAPI()
                 .info(new Info().title("API 2026 Autenticador de tokens de seguridad de la Biblioteca AM")
                         .version("1.0")
-                        .description("Gestion de tokens para manejar la seguridad de los MicroServicios de la Biblioteca AM"));
+                        .description("Gestion de tokens para manejar la seguridad de los MicroServicios de la Biblioteca AM"))
+                .components(new Components().addSecuritySchemes("bearerAuth",securityScheme))
+                .addSecurityItem(securityRequirement);
     }
 }
