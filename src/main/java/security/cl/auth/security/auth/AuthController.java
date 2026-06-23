@@ -28,8 +28,9 @@ public class AuthController {
     @PostMapping(value = "login")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "¡Usuario logeado con exito!"),
-            @ApiResponse(responseCode = "404",description = "El usuario no fue encontrado, pruebe a revisar si ingreso bien sus parametros."),
-            @ApiResponse(responseCode = "400",description = "Puede que hayan faltado algunos parametros, revise que haya introducido todos.")
+            @ApiResponse(responseCode = "400",description = "Puede que hayan faltado algunos parametros, revise que haya introducido todos."),
+            @ApiResponse(responseCode = "403",description = "Al parecer esta usando una llave de autorizacion, desactivela y vuelva a intentarlo"),
+            @ApiResponse(responseCode = "404",description = "El usuario no fue encontrado, pruebe a revisar si ingreso bien sus parametros.")
     })
     public ResponseEntity<AuthResponse> login(@RequestBody @Valid  LoginRequest request){
         return ResponseEntity.ok(authService.login(request));
@@ -40,7 +41,8 @@ public class AuthController {
     @PostMapping(value = "register")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "¡Usuario registrado con exito!"),
-            @ApiResponse(responseCode = "400",description = "El usuario no pudo ser creado, pruebe a revisar si ingreso bien sus parametros.")
+            @ApiResponse(responseCode = "400",description = "El usuario no pudo ser creado, pruebe a revisar si ingreso bien sus parametros."),
+            @ApiResponse(responseCode = "403",description = "Al parecer esta usando una llave de autorizacion, desactivela y vuelva a intentarlo")
     })
     public ResponseEntity<AuthResponse> register(@RequestBody @Valid RegisterRequest request)
     {

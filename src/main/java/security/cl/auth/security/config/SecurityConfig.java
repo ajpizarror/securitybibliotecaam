@@ -27,7 +27,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authRequest ->
                         authRequest
-                                .requestMatchers("/api/bibliotecaam/auth/**",
+                                .requestMatchers(
+                                        "/api/bibliotecaam/auth/**",
                                         "/swagger-ui/**",
                                         "/swagger-ui.html",
                                         "/v3/api-docs/**",
